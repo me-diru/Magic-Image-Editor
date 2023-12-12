@@ -1,0 +1,21 @@
+<!-- results.html -->
+
+{% extends "index.html" %}
+
+{% block content %}
+    
+
+    <!-- Placeholders for images -->
+    {% if original_image and processed_image %}
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>Original Image</h2>
+            <img src="{{ url_for('static', filename=original_image) }}" alt="Original Image" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h2>Processed Image</h2>
+            <img src="{{ url_for('static', filename=processed_image) }}" alt="Processed Image" class="img-fluid">
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seam Carving App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Optional: Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom styles -->
+    <style>
+        /* Your existing styles */
+        /* ... */
+    </style>
+    <script>
+        function updateInputFields() {
+            var method = document.getElementById('method').value;
+            document.getElementById('numRows').disabled = (method == 'forward_vertical' || method == "backward_vertical");
+            document.getElementById('numColumns').disabled = (method == 'forward_horizontal' || method == "backward_horizontal");
+        }
+    </script>
+</head>
+<body onload="updateInputFields()">
+    <div class="container">
+        <h1 class="text-center mb-4">Seam Carving App</h1>
+        <form action="/process" method="post" enctype="multipart/form-data" class="mb-3">
+            <div class="form-group">
+                <label for="method">Select Method:</label>
+                <select name="method" id="method" class="form-control" onchange="updateInputFields()">
+                    <option value="forward_horizontal">Forward Energy Horizontal</option>
+                    <option value="forward_vertical">Forward Energy Vertical</option>
+                    <option value="backward_vertical">Backward Energy Vertical</option>
+                    <option value="backward_horizontal">Backward Energy Horizontal</option>
+                    <option value="greedy">Adpative Greedy Approach</option>
+                    <option value="other">Other Methods</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numRows">Number of Rows to Remove:</label>
+                <input type="number" name="numRows" id="numRows" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="numColumns">Number of Columns to Remove:</label>
+                <input type="number" name="numColumns" id="numColumns" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Upload Image:</label>
+                <input type="file" name="image" id="image" class="form-control-file" required>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label for="width">New Width:</label>
+                    <input type="number" name="width" id="width" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="height">New Height:</label>
+                    <input type="number" name="height" id="height" class="form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Process</button>
+        </form>
+    </div>
+    <script>
+        // JavaScript to update input fields based on the selected method
+        document.getElementById('method').addEventListener('change', updateInputFields);
+    </script>
+    <div class="container">
+        {% block content %}
+        <!-- Your form will go here -->
+        {% endblock %}
+    </div>
+</body>
+</html>
