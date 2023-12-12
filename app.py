@@ -16,9 +16,7 @@ def process_image():
         method = request.form['method']  # forward, backward, or other methods
         num_rows = int(request.form.get('numRows', 0))  # Number of rows to remove
         num_columns = int(request.form.get('numColumns', 0))  # Number of columns to remove
-        # new_width = int(request.form.get('width', 0))
-        # new_height = int(request.form.get('height', 0))
-
+    
         processed_image = ""
         image = ""
       

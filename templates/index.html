@@ -12,8 +12,31 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Custom styles -->
     <style>
-        /* Your existing styles */
-        /* ... */
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+        }
+        .custom-header {
+            background-color: #add8e6; /* Lighter blue for the header */
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            background-color: #007bff; /* A pop of brighter blue */
+            border-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #004080;
+        }
+        .form-control, .form-control:focus {
+            border-color: #add8e6;
+            box-shadow: 0 0 0 0.2rem rgba(173, 216, 230, 0.25);
+        }
+        .container {
+            padding-top: 10px;
+        }
     </style>
     <script>
         function updateInputFields() {
