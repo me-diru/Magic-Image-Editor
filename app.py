@@ -37,13 +37,13 @@ def process_image():
             cv2.imwrite(original_image_path_1, image) 
 
             if method == "forward_vertical":
-                processed_image = image_seam_removal(image, num_columns, forward_energy_matrix)
+                processed_image = remove_vertical_seams(image, num_columns, compute_forward_energy_vertical)
             elif method == "forward_horizontal":
                 processed_image = remove_horizontal_seams(image, num_rows, compute_forward_energy_horizontal)
             elif method == "backward_vertical":
-                processed_image = image_seam_removal(image, num_columns, backward_energy_matrix)
+                processed_image = remove_vertical_seams(image, num_columns, compute_backward_energy_vertical)
             elif method == "backward_horizontal":
-                processed_image = remove_horizontal_seams(image, num_rows, backward_energy_matrix)
+                processed_image = remove_horizontal_seams(image, num_rows, compute_backward_energy_horizontal)
             elif method == "greedy":
                 processed_image = adaptive_seam_removal(image, num_columns, num_rows)
             elif method == "monte_carlo":
