@@ -46,8 +46,13 @@ def process_image():
                 processed_image = remove_horizontal_seams(image, num_rows, backward_energy_matrix)
             elif method == "greedy":
                 processed_image = adaptive_seam_removal(image, num_columns, num_rows)
-            # print(processed_image)
-            print(method, image_file.filename, )
+            elif method == "monte_carlo":
+                best_sequence, _ = monte_carlo_seam_carving(image, num_columns, num_rows, iterations=10)
+                processed_image = get_image_from_sequence(best_sequence, image)
+                
+
+
+            # print(method, image_file.filename, )
         
         processed_image_path_1 = 'static/Images/processed/'+method+"_"+image_file.filename
         processed_image_path = 'Images/processed/'+method+"_"+image_file.filename
