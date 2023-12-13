@@ -27,22 +27,24 @@ def compute_backward_energy_vertical(image):
 def compute_forward_energy_vertical(image):
     # Compute the forward energy matrix
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY).astype(np.float64)
-    cumulative_energy = np.zeros(gray_image.shape)
+    energy_matrix = np.zeros_like(gray_image)
 
-    neighbor_left = np.roll(gray_image, 1, axis=1)
-    neighbor_up = np.roll(gray_image, 1, axis=0)
-    neighbor_right = np.roll(gray_image, -1, axis=1)
+    left = np.roll(gray_image, 1, axis=1)
+    up = np.roll(gray_image, 1, axis=0)
+    right = np.roll(gray_image, -1, axis=1)
 
-    energy_left_right = np.abs(neighbor_right - neighbor_left)
-    energy_up_left_right = energy_left_right + np.abs(neighbor_up - neighbor_left)
-    energy_up_right = energy_left_right + np.abs(neighbor_up - neighbor_right)
+    energy_lr = np.abs(right - left)
+    energy_ulr = energy_lr + np.abs(up - left)
+    energy_ur = energy_lr + np.abs(up - right)
 
     for i in range(1, gray_image.shape[0]):
-        cumulative_energy[i] = np.min(np.array([np.roll(cumulative_energy[i - 1], 1) + energy_up_left_right[i],
-                                                cumulative_energy[i - 1] + energy_left_right[i],
-                                                np.roll(cumulative_energy[i - 1], -1) + energy_up_right[i]]), axis=0)
+        energy_matrix[i] = np.min([
+            np.roll(energy_matrix[i - 1], 1) + energy_ulr[i],
+            energy_matrix[i - 1] + energy_lr[i],
+            np.roll(energy_matrix[i - 1], -1) + energy_ur[i]
+        ], axis=0)
 
-    return cumulative_energy
+    return energy_matrix
 
 @jit
 def find_vertical_seam(cost_matrix):
